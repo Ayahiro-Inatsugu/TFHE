@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { initializeSeal } from '../../utils/sealInitialize';
+import { initializeSeal } from '../../../utils/sealInitialize';
 import { readFile } from 'fs/promises';
 import path from 'path'
 import { writeFile } from 'fs/promises';
