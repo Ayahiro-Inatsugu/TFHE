@@ -8,6 +8,8 @@ import CipherOutputTextBox from '@/components/features/top/CipherOutputTextBox';
 import PlainOutputTextBox from '@/components/features/top/PlainOutputTextBox';
 import { postEncrypt } from '@/services/postEncrypt';
 import { postEvaluate } from '@/services/postEvaluate';
+import { postDecrypt } from '@/services/postDecrypt';
+import { resetTextBox } from '@/utils/resetTextBox';
 
 export const Top: FC = () => {
   const [inputLeft, setInputLeft] = useState<string>('');
@@ -15,7 +17,7 @@ export const Top: FC = () => {
   const [cipherTextLeft, setCipherTextLeft] = useState<string>('');
   const [cipherTextRight, setCipherTextRight] = useState<string>('');
   const [cipherOutput, setCipherOutput] = useState<string>('');
-  const [plainOutput, setPlainOutput] = useState<string>('');
+  const [plainOutput, setPlainOutput] = useState<number | undefined>();
 
   const handleInputLeftChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputLeft(event.target.value);
@@ -38,10 +40,21 @@ export const Top: FC = () => {
 
   const handleDecrypting = async () => {
     try {
-
+      const { number } = await postDecrypt();
+      setPlainOutput(number);
     } catch (error: any) {
       console.error('Request failed:', error);
     }
+  };
+
+  const handleReset = () => {
+    setInputLeft('');
+    setInputRight('');
+    setCipherTextLeft('');
+    setCipherTextRight('');
+    setCipherOutput('');
+    setPlainOutput(undefined);
+    resetTextBox();
   };
 
   return (
@@ -67,6 +80,7 @@ export const Top: FC = () => {
           <PlainOutputTextBox
             plainOutput={plainOutput}
           />
+          <button className="bg-white text-black w-1/5 h-12 rounded hover:font-bold" onClick={handleReset}>Reset</button>
       </main>
     </>
   );
