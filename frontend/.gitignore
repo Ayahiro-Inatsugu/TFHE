@@ -37,3 +37,8 @@ next-env.d.ts
 
 # environment
 .env
+
+# encryption
+keys.json
+cipherText1.txt
+cipherText2.txt
