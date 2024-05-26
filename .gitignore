@@ -42,3 +42,6 @@ next-env.d.ts
 keys.json
 cipherText1.txt
 cipherText2.txt
+
+# evaluate
+accumulatedCipherText.txt
