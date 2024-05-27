@@ -26,12 +26,12 @@ export async function POST(req: Request) {
     cipherTextLoad_2.load(context, cipherTextBase64_2);
 
     // 加算
-    const accumulatedCipherText = seal.CipherText();
-    evaluator.add(cipherTextLoad_1, cipherTextLoad_2, accumulatedCipherText);
+    // const accumulatedCipherText = seal.CipherText();
+    // evaluator.add(cipherTextLoad_1, cipherTextLoad_2, accumulatedCipherText);
 
     // 乗算
-    // const accumulatedCipherText = seal.CipherText();
-    // evaluator.multiply(cipherTextLoad_1, cipherTextLoad_2, accumulatedCipherText);
+    const accumulatedCipherText = seal.CipherText();
+    evaluator.multiply(cipherTextLoad_1, cipherTextLoad_2, accumulatedCipherText);
 
     // 減算
     // const accumulatedCipherText = seal.CipherText();
