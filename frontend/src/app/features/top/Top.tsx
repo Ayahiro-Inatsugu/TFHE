@@ -12,12 +12,17 @@ import { postDecrypt } from '@/services/postDecrypt';
 import { resetTextBox } from '@/utils/resetTextBox';
 
 export const Top: FC = () => {
+  const [computingMethod, setComputingMethod] = useState<string>('addition');
   const [inputLeft, setInputLeft] = useState<string>('');
   const [inputRight, setInputRight] = useState<string>('');
   const [cipherTextLeft, setCipherTextLeft] = useState<string>('');
   const [cipherTextRight, setCipherTextRight] = useState<string>('');
   const [cipherOutput, setCipherOutput] = useState<string>('');
   const [plainOutput, setPlainOutput] = useState<number | undefined>();
+
+  const handleChangeComputingMethod = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setComputingMethod(event.target.value);
+  };
 
   const handleInputLeftChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputLeft(event.target.value);
@@ -31,7 +36,7 @@ export const Top: FC = () => {
       const { cipherText1, cipherText2 } = await postEncrypt(inputLeft, inputRight);
       setCipherTextLeft(cipherText1);
       setCipherTextRight(cipherText2);
-      const { cipherText } = await postEvaluate();
+      const { cipherText } = await postEvaluate(computingMethod);
       setCipherOutput(cipherText);
     } catch (error: any) {
       console.error('Request failed:', error);
@@ -48,6 +53,7 @@ export const Top: FC = () => {
   };
 
   const handleReset = () => {
+    setComputingMethod('addition');
     setInputLeft('');
     setInputRight('');
     setCipherTextLeft('');
@@ -61,8 +67,13 @@ export const Top: FC = () => {
     <>
       <main className="flex flex-col items-center gap-8 p-8">
           <h1 className="text-4xl font-bold">SEAL Demo</h1>
-          <ComputingSelect />
+          <ComputingSelect
+            computingMethod={computingMethod}
+            handleChangeComputingMethod={handleChangeComputingMethod}
+          />
           <PlainInputTextBox
+            inputLeft={inputLeft}
+            inputRight={inputRight}
             handleInputLeftChange={handleInputLeftChange}
             handleInputRightChange={handleInputRightChange}
           />

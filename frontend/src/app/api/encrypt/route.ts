@@ -8,9 +8,6 @@ export async function POST(req: Request) {
     const { encryptor, batchEncoder, decryptor } = await initializeSeal();
     const { number1, number2 } = await req.json();
 
-    console.log('number1:', number1);
-    console.log('number2:', number2);
-
     // 数値を暗号化
     const encodedNumber1 = batchEncoder.encode(Int32Array.from([number1]));
     const encodedNumber2 = batchEncoder.encode(Int32Array.from([number2]));
