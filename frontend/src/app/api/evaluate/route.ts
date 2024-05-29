@@ -12,6 +12,7 @@ type AddResponseData = {
 export async function POST(req: Request) {
   try {
     const { evaluator, encryptor, decryptor, batchEncoder, seal, context } = await initializeSeal();
+    const { computingMethod } = await req.json();
 
     // ファイルから暗号文を読み込む
     const filePath1 = path.join(process.cwd(), 'data', 'cipherText1.txt');
@@ -25,22 +26,21 @@ export async function POST(req: Request) {
     cipherTextLoad_1.load(context, cipherTextBase64_1);
     cipherTextLoad_2.load(context, cipherTextBase64_2);
 
-    // 加算
-    // const accumulatedCipherText = seal.CipherText();
-    // evaluator.add(cipherTextLoad_1, cipherTextLoad_2, accumulatedCipherText);
-
-    // 乗算
     const accumulatedCipherText = seal.CipherText();
-    evaluator.multiply(cipherTextLoad_1, cipherTextLoad_2, accumulatedCipherText);
 
-    // 減算
-    // const accumulatedCipherText = seal.CipherText();
-    // evaluator.sub(cipherTextLoad_1, cipherTextLoad_2, accumulatedCipherText);
-
-    // 累乗
-    // const accumulatedCipherText = seal.CipherText();
-    // evaluator.square(cipherTextLoad_1, cipherTextLoad_2, accumulatedCipherText);
-
+    // 演算手法によって処理を変更
+    if (computingMethod === 'addition') {
+    // 加算
+      evaluator.add(cipherTextLoad_1, cipherTextLoad_2, accumulatedCipherText);
+    } else if (computingMethod ==='subtraction') {
+      // 減算
+      evaluator.sub(cipherTextLoad_1, cipherTextLoad_2, accumulatedCipherText);
+    } else if (computingMethod ==='multiplication') {
+      // 乗算
+      evaluator.multiply(cipherTextLoad_1, cipherTextLoad_2, accumulatedCipherText);
+    } else {
+      throw new Error('Invalid computing method');
+    }
     // 加算結果の暗号文をBase64文字列として保存
     const cipherTextBase64 = accumulatedCipherText.save();
     const filePath = path.join(process.cwd(), 'data', 'accumulatedCipherText.txt');
