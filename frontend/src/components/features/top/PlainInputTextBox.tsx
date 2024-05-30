@@ -1,10 +1,13 @@
-import React, { FC } from 'react'
+import React from 'react'
 
-type Props = {
-  handleInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+interface Props {
+  inputLeft: string;
+  inputRight: string;
+  handleInputLeftChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleInputRightChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const PlainInputTextBox: FC<Props> = ({ inputLeft, inputRight, handleInputLeftChange, handleInputRightChange }: Props) => {
+const PlainInputTextBox = ({ inputLeft, inputRight, handleInputLeftChange, handleInputRightChange }: Props) => {
   return (
     <div className="w-full flex flex-col items-center gap-4">
       <p className="text-2xl">Plain Input</p>

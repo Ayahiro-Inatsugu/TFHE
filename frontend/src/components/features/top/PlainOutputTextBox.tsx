@@ -1,6 +1,10 @@
 import React from 'react'
 
-const PlainOutputTextBox = ({plainOutput}: {plainOutput: number | undefined}) => {
+type Props = {
+  plainOutput: number | undefined;
+}
+
+const PlainOutputTextBox= ({plainOutput}: Props) => {
   return (
     <div className="flex flex-col items-center gap-4 w-full">
       <p className="text-2xl">Plain Output</p>

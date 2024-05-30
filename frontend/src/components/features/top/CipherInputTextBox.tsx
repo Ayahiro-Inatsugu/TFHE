@@ -1,6 +1,11 @@
 import React from 'react'
 
-const CipherInputTextBox = ({ cipherTextLeft, cipherTextRight }) => {
+type Props = {
+  cipherTextLeft: string;
+  cipherTextRight: string;
+}
+
+const CipherInputTextBox = ({ cipherTextLeft, cipherTextRight }: Props) => {
   return (
     <div className="flex flex-col items-center gap-4 w-full">
       <p className="text-2xl">Cipher Input</p>
