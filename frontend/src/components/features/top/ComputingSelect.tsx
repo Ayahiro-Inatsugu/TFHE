@@ -1,6 +1,11 @@
 import React from 'react'
 
-const ComputingSelect = ({computingMethod, handleChangeComputingMethod}) => {
+type Props = {
+  computingMethod?: string;
+  handleChangeComputingMethod: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+const ComputingSelect= ({computingMethod, handleChangeComputingMethod}: Props) => {
   return (
     <div className="w-1/3 flex flex-col items-center gap-2">
       <p className="text-xl">Choose Computing Method</p>

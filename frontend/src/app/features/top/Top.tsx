@@ -11,6 +11,7 @@ import { postEvaluate } from '@/services/postEvaluate';
 import { postDecrypt } from '@/services/postDecrypt';
 import { resetTextBox } from '@/utils/resetTextBox';
 
+
 export const Top: FC = () => {
   const [computingMethod, setComputingMethod] = useState<string>('addition');
   const [inputLeft, setInputLeft] = useState<string>('');
